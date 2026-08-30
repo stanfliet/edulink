@@ -1,0 +1,42 @@
+/* Copy to: app/globals.css (Next.js) */
+:root{
+  --bg-void: #0B0C10; /* deep void charcoal */
+  --panel: #121217;   /* cyber slate panel */
+  --accent-cyan: #45A29E; /* electric cyan */
+  --accent-crimson: #FF0055; /* neon crimson */
+  --muted: #9AA0A6;
+  --glass: rgba(255,255,255,0.03);
+  --radius: 12px;
+  --transition: 180ms cubic-bezier(.2,.9,.2,1);
+}
+
+html,body,#root{height:100%;}
+body{
+  margin:0;
+  background:var(--bg-void);
+  color:#E6EEF3;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.edulink-root{display:flex;flex-direction:column;min-height:100vh}
+.top-rail{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-bottom:1px solid rgba(69,162,158,0.06)}
+.brand{font-weight:700;letter-spacing:2px;color:var(--accent-cyan)}
+.app-shell{display:flex;flex:1}
+.side-rail{width:88px;background:var(--panel);padding:16px;border-right:1px solid rgba(255,255,255,0.03);box-shadow:inset 0 0 0 1px rgba(69,162,158,0.02)}
+.nav-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.nav-item{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;cursor:pointer}
+.nav-item:hover{background:rgba(69,162,158,0.04);color:var(--accent-cyan);transform:translateX(6px);transition:var(--transition)}
+.content-area{flex:1;padding:28px;background:linear-gradient(0deg, rgba(255,255,255,0.01), transparent)}
+
+.edulink-footer{display:flex;gap:24px;justify-content:space-between;padding:18px 24px;color:var(--muted);font-size:12px;background:transparent;border-top:1px solid rgba(255,255,255,0.02)}
+.footer-col{flex:1}
+
+/* Utility badges */
+.badge-alert{background:var(--accent-crimson);color:white;padding:4px 8px;border-radius:999px;font-size:12px}
+
+/* Full-screen blocker modal */
+.ui-blocker-modal{position:fixed;inset:0;background:linear-gradient(90deg, rgba(11,12,16,0.96), rgba(18,18,23,0.98));display:flex;align-items:center;justify-content:center;z-index:9999}
+.ui-blocker-inner{background:var(--panel);padding:32px;border-radius:12px;max-width:720px;text-align:center;border:1px solid rgba(255,0,85,0.06)}
+.ui-blocker-title{color:var(--accent-crimson);font-weight:700;margin-bottom:8px}

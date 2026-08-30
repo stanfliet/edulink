@@ -1,0 +1,54 @@
+# Render blueprint — EDULINK background automation.
+# The Next.js front-end is deployed on Vercel; Supabase hosts the database + Edge Functions.
+# Render runs the two scheduled cron jobs that trigger the Supabase Edge Functions
+# via HTTP, exactly as required:
+#   1. attendance-lockout-watchdog  -> every day at 14:00 (spec: "Cron scheduled via Render ... daily at 14:00 PM")
+#   2. 72-hour-disciplinary-tracker -> nightly ("Evaluates attendance records nightly")
+#
+# Deploy:  render blueprint file -> paste this render.yaml -> connect env vars.
+# The cron services need the following env vars (set them in the Render dashboard):
+#   EDULINK_SUPABASE_URL, EDULINK_SERVICE_ROLE_KEY, EDULINK_CRON_SECRET
+# EDULINK_CRON_SECRET must match the SECRET_EDULINK_CRON value configured on the Edge Functions.
+
+services:
+  # ------------------------------------------------------------------ 14:00 lockout watchdog
+  - type: cron
+    name: edulink-attendance-watchdog
+    runtime: image
+    image:
+      url: curlimages/curl:latest
+    schedule: "0 14 * * *"              # 14:00 every day (UTC; adjust for SAST +2)
+    plan: starter                       # cron jobs run on any paid plan; free plan: remove line
+    dockerCommand: >
+      sh -c 'curl -fsS -X POST "$EDULINK_SUPABASE_URL/functions/v1/attendance-lockout-watchdog"
+      -H "Authorization: Bearer $EDULINK_SERVICE_ROLE_KEY"
+      -H "x-edulink-cron-secret: $EDULINK_CRON_SECRET"
+      -H "Content-Type: application/json" -d "{\"trigger\":\"render-cron\"}"'
+    envVars:
+      - key: EDULINK_SUPABASE_URL
+        sync: false
+      - key: EDULINK_SERVICE_ROLE_KEY
+        sync: false
+      - key: EDULINK_CRON_SECRET
+        sync: false
+
+  # ------------------------------------------------------------------ nightly 72-hour tracker
+  - type: cron
+    name: edulink-72hr-discipline-tracker
+    runtime: image
+    image:
+      url: curlimages/curl:latest
+    schedule: "30 1 * * *"              # nightly 01:30 UTC (03:30 SAST)
+    plan: starter
+    dockerCommand: >
+      sh -c 'curl -fsS -X POST "$EDULINK_SUPABASE_URL/functions/v1/72-hour-disciplinary-tracker"
+      -H "Authorization: Bearer $EDULINK_SERVICE_ROLE_KEY"
+      -H "x-edulink-cron-secret: $EDULINK_CRON_SECRET"
+      -H "Content-Type: application/json" -d "{\"trigger\":\"render-cron\"}"'
+    envVars:
+      - key: EDULINK_SUPABASE_URL
+        sync: false
+      - key: EDULINK_SERVICE_ROLE_KEY
+        sync: false
+      - key: EDULINK_CRON_SECRET
+        sync: false

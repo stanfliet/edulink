@@ -1,0 +1,26 @@
+# dependencies / builds
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# environment & secrets
+.env
+.env.local
+.env*.local
+*.pem
+
+# local postgres data (keep out of git)
+.pgdata/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# supabase local
+supabase/.temp/
+supabase/.branches/

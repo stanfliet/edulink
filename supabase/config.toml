@@ -1,0 +1,56 @@
+# ============================================================
+# EDULINK · Supabase local config
+# Used for `supabase start`, `supabase functions serve`, and
+# `supabase db push` against the hosted project (override via flags).
+# Project ref for the live deployment:
+#   https://vfjskqklfavhhltsaicr.supabase.co
+# ============================================================
+project_id = "edulink"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+enabled = true
+port = 54323
+
+[email]
+enabled = true
+
+[auth]
+enabled = true
+site_url = "https://k2020.org.za"
+additional_redirect_urls = ["http://localhost:3000/**"]
+jwt_expiry = 3600
+
+[auth.email]
+enable_signup = false   # accounts provisioned via Admin API / seed scripts only
+double_confirm_changes = true
+enable_confirmations = true
+
+[storage]
+enabled = true
+file_size_limit = "25MiB"
+
+# ------------------------------------------------------------
+# Edge Functions
+# ------------------------------------------------------------
+[functions.data-ingestion-parser]
+verify_jwt = true
+
+[functions.attendance-lockout-watchdog]
+verify_jwt = true
+
+[functions.72-hour-disciplinary-tracker]
+verify_jwt = true
+
+[functions.payfast-billing-webhook]
+verify_jwt = false   # PayFast ITN has no JWT — function validates signature + cron secret

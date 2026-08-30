@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --void: #0b0c10;
+  --panel: #15171f;
+  --cyan: #45a29e;
+  --crimson: #ff0055;
+}
+
+html,
+body {
+  background: var(--void);
+  color: #e8eaf2;
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 15% 0%, rgba(69, 162, 158, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 90% 100%, rgba(255, 0, 85, 0.05), transparent 60%),
+    linear-gradient(var(--void), var(--void));
+  background-attachment: fixed;
+}
+
+/* ------- cyber grid backdrop (dashboard shells) ------- */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(69, 162, 158, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(69, 162, 158, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridDrift 3s linear infinite;
+}
+
+/* ------- panel primitives ------- */
+.panel {
+  @apply rounded-lg border border-edge bg-panel/80 backdrop-blur-sm;
+}
+
+.panel-glow {
+  @apply rounded-lg border border-cyan/30 bg-panel/80 shadow-neonSm;
+}
+
+.panel-title {
+  @apply font-display text-[11px] uppercase tracking-[0.22em] text-cyan;
+}
+
+.label {
+  @apply text-[10px] uppercase tracking-[0.18em] text-ghost;
+}
+
+.mono-num {
+  @apply font-mono;
+}
+
+/* ------- neon inputs / buttons ------- */
+.neon-input {
+  @apply w-full rounded-md border border-edge bg-void/70 px-3 py-2 text-sm text-ink outline-none transition
+    focus:border-cyan focus:shadow-neonSm placeholder:text-ghost/60;
+}
+
+.neon-select {
+  @apply rounded-md border border-edge bg-void/70 px-3 py-2 text-sm text-ink outline-none transition
+    focus:border-cyan focus:shadow-neonSm;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-md border border-edge bg-void/40 px-3 py-1.5 text-sm
+    text-ghost transition hover:border-cyan/60 hover:text-cyan disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.btn-neon {
+  @apply inline-flex items-center justify-center gap-2 rounded-md border border-cyan/60 bg-cyan/10 px-4 py-2 text-sm
+    font-medium text-cyan transition hover:bg-cyan/20 hover:shadow-neon disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.btn-solid {
+  @apply inline-flex items-center justify-center gap-2 rounded-md bg-cyan px-4 py-2 text-sm font-semibold
+    text-void transition hover:bg-acid hover:shadow-neon disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.btn-danger {
+  @apply inline-flex items-center justify-center gap-2 rounded-md border border-crimson/60 bg-crimson/10 px-4 py-2
+    text-sm font-medium text-crimson transition hover:bg-crimson/20 hover:shadow-crimson disabled:opacity-40;
+}
+
+/* ------- badges ------- */
+.badge-ok { @apply inline-flex items-center gap-1 rounded-full border border-cyan/50 bg-cyan/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-cyan; }
+.badge-warn { @apply inline-flex items-center gap-1 rounded-full border border-amber-400/50 bg-amber-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-300; }
+.badge-danger { @apply inline-flex items-center gap-1 rounded-full border border-crimson/60 bg-crimson/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-crimson animate-pulseGlow; }
+.badge-ghost { @apply inline-flex items-center gap-1 rounded-full border border-edge bg-panel2 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ghost; }
+
+/* ------- scrollbars ------- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0b0c10; }
+::-webkit-scrollbar-thumb { background: #262a38; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #45a29e; }
+
+/* ------- vertical radio-toggle register rows ------- */
+.reg-row {
+  @apply flex items-center gap-2 rounded-md border border-edge bg-void/50 px-3 py-2 transition hover:border-cyan/40;
+}
+.reg-toggle {
+  @apply h-8 w-14 shrink-0 cursor-pointer appearance-none rounded-full border border-edge bg-panel2 p-1 transition-all;
+}
+.reg-toggle:checked { @apply border-cyan bg-cyan/20 shadow-neonSm; }
+.reg-toggle::before {
+  content: "";
+  display: block;
+  height: 100%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: #3a4152;
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+.reg-toggle:checked::before { transform: translateX(24px); background: #45a29e; }
+.reg-toggle[data-status="ABSENT"]:checked { @apply border-crimson bg-crimson/15 shadow-crimson; }
+.reg-toggle[data-status="ABSENT"]:checked::before { background: #ff0055; transform: translateX(24px); }
+.reg-toggle[data-status="LATE"]:checked { @apply border-amber-400 bg-amber-400/10; }
+.reg-toggle[data-status="LATE"]:checked::before { background: #fbbf24; transform: translateX(24px); }
+
+/* ------- full-screen lockout modal ------- */
+.lockout-overlay {
+  @apply fixed inset-0 z-[9999] flex items-center justify-center bg-void/95 backdrop-blur-md;
+  background-image:
+    linear-gradient(rgba(255, 0, 85, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 85, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ------- footer ------- */
+.legal-footer {
+  @apply border-t border-edge bg-panel/60;
+  background-image: linear-gradient(rgba(69, 162, 158, 0.04) 1px, transparent 1px);
+  background-size: 100% 2px;
+}
