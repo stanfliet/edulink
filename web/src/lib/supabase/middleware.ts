@@ -30,8 +30,13 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   // public routes
-  if (path === "/" || path.startsWith("/login") || path.startsWith("/auth")) {
-    if (user && path === "/login") {
+  if (
+    path === "/" ||
+    path.startsWith("/login") ||
+    path.startsWith("/register") ||
+    path.startsWith("/auth")
+  ) {
+    if (user && (path === "/login" || path === "/register")) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
     return response;

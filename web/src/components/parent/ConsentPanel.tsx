@@ -21,7 +21,7 @@ export interface ChildInfo {
  * (enforced server-side by guard_parent_learner_edit). Consent unlocks
  * DSD/clinic visibility for case-managed children.
  */
-export function ConsentPanel({ child }: { child: ChildInfo }) {
+export function ConsentPanel({ child, onChange }: { child: ChildInfo; onChange?: () => void }) {
   const [consent, setConsent] = useState(child.parent_consent_popia);
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
@@ -40,6 +40,7 @@ export function ConsentPanel({ child }: { child: ChildInfo }) {
     } else {
       setConsent(next);
       setMsg(next ? "Consent granted — recorded on the child's profile." : "Consent withdrawn.");
+      onChange?.();
     }
     setBusy(false);
   }
