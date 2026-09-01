@@ -24,3 +24,4 @@ Thumbs.db
 # supabase local
 supabase/.temp/
 supabase/.branches/
+web/build_log.txt

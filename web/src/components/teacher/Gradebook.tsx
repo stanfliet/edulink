@@ -70,7 +70,7 @@ export function Gradebook({ classId, teacherId }: { classId: string; teacherId: 
         .from("submissions")
         .select("submission_id, status, submitted_at, learner:learners(first_name, last_name)")
         .eq("assignment_id", selected);
-      const subs = (data as Submission[]) ?? [];
+      const subs = (data as unknown as Submission[]) ?? [];
       setSubmissions(subs);
       if (subs.length === 0) {
         setGrades({});

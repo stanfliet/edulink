@@ -54,7 +54,7 @@ export function ParentCalendar({ childIds }: { childIds: string[] }) {
         .in("learner_id", childIds);
 
       const learnerByClass: Record<string, { first_name: string; last_name: string }[]> = {};
-      for (const l of (links ?? []) as Array<{
+      for (const l of (links ?? []) as unknown as Array<{
         class_id: string;
         learner: { first_name: string; last_name: string } | null;
       }>) {
@@ -63,7 +63,7 @@ export function ParentCalendar({ childIds }: { childIds: string[] }) {
       }
 
       const rows: CalendarItem[] = [];
-      for (const a of (assignments ?? []) as Array<{
+      for (const a of (assignments ?? []) as unknown as Array<{
         assignment_id: string;
         title: string;
         due_date: string;
