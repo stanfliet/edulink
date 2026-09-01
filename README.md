@@ -30,7 +30,7 @@ edulink/
 │       ├── _shared/           # CORS + supabase admin client + idempotent guard
 │       ├── data-ingestion-parser/        # SA-SAMS + CEMIS XLSX parsing
 │       ├── attendance-lockout-watchdog/  # daily 14:00 (Render cron)
-│       ├── 72-hour-disciplinary-tracker/ # nightly (Render cron)
+│       ├── disciplinary-72h-tracker/ # nightly (Render cron)
 │       └── payfast-billing-webhook/      # PayFast ITN callbacks
 ├── render.yaml                # Render blueprint (cron services)
 ├── vercel.json                # Vercel project config
@@ -41,7 +41,7 @@ edulink/
 ## Deployment
 
 1. **Supabase**: create project → run `supabase/migrations/0001..0005` in order (SQL editor or `supabase db push`).
-2. **Edge Functions**: `supabase functions deploy data-ingestion-parser attendance-lockout-watchdog 72-hour-disciplinary-tracker payfast-billing-webhook --project-ref <ref>` — then set the secrets from `.env.example`.
+2. **Edge Functions**: `supabase functions deploy data-ingestion-parser attendance-lockout-watchdog disciplinary-72h-tracker payfast-billing-webhook --project-ref <ref>` — then set the secrets from `.env.example`.
 3. **Vercel**: import `web/` (rootDirectory auto-detected from `vercel.json`), add env vars, custom domain `k2020.org.za`.
 4. **Render**: create a Blueprint from `render.yaml`, fill the three sync:false env vars. Cron schedule: watchdog **14:00 daily**, 72-hour tracker **nightly 01:30 UTC**.
 5. **Seed (optional)**: `npm i` in `scripts/`, set `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`, then `npm run seed`.

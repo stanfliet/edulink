@@ -18,7 +18,7 @@ interface TrackerRow {
 
 /**
  * 72-hour statutory clock board for the disciplinary tracker.
- * Mirrors the 72-hour-disciplinary-tracker edge function output:
+ * Mirrors the disciplinary-72h-tracker edge function output:
  * every open case shows hours elapsed since trigger, and rows breach
  * once >72h without resolution or Form 22 filing.
  */

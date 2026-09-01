@@ -46,8 +46,8 @@ verify_jwt = true
 [functions.attendance-lockout-watchdog]
 verify_jwt = true
 
-#[functions.72-hour-disciplinary-tracker]
-#verify_jwt = true
+[functions.disciplinary-72h-tracker]
+verify_jwt = true
 
 [functions.payfast-billing-webhook]
 verify_jwt = false   # PayFast ITN has no JWT — function validates signature + cron secret

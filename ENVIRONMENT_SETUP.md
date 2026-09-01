@@ -147,7 +147,7 @@ cd supabase
 # Deploy all functions
 supabase functions deploy data-ingestion-parser --project-ref <ref>
 supabase functions deploy attendance-lockout-watchdog --project-ref <ref>
-supabase functions deploy 72-hour-disciplinary-tracker --project-ref <ref>
+supabase functions deploy disciplinary-72h-tracker --project-ref <ref>
 supabase functions deploy payfast-billing-webhook --project-ref <ref>
 
 # Verify
@@ -233,7 +233,7 @@ When deploying blueprint:
 Dashboard → Services → [Service Name] → Settings → Cron
 
 - **attendance-lockout-watchdog:** `0 14 * * *` (14:00 UTC daily)
-- **72-hour-disciplinary-tracker:** `30 1 * * *` (01:30 UTC daily)
+- **disciplinary-72h-tracker:** `30 1 * * *` (01:30 UTC daily)
 
 ---
 

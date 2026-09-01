@@ -1,5 +1,5 @@
 // ============================================================
-// EDULINK · 72-hour-disciplinary-tracker
+// EDULINK · disciplinary-72h-tracker
 // Scheduled via Render cron -> nightly.
 //
 // Evaluates attendance records nightly. If a minor child has been

@@ -64,7 +64,7 @@ supabase functions deploy data-ingestion-parser \
 supabase functions deploy attendance-lockout-watchdog \
   --project-ref <ref>
 
-supabase functions deploy 72-hour-disciplinary-tracker \
+supabase functions deploy disciplinary-72h-tracker \
   --project-ref <ref>
 
 supabase functions deploy payfast-billing-webhook \
@@ -81,7 +81,7 @@ supabase functions deploy payfast-billing-webhook \
 
 # Cron schedules:
 - attendance-lockout-watchdog: 14:00 daily (UTC)
-- 72-hour-disciplinary-tracker: 01:30 daily (UTC)
+- disciplinary-72h-tracker: 01:30 daily (UTC)
 ```
 
 ### 5. **DNS Configuration** ✓

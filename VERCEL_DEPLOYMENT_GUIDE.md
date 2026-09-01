@@ -107,7 +107,7 @@ supabase functions deploy data-ingestion-parser \
 supabase functions deploy attendance-lockout-watchdog \
   --project-ref <ref>
 
-supabase functions deploy 72-hour-disciplinary-tracker \
+supabase functions deploy disciplinary-72h-tracker \
   --project-ref <ref>
 
 supabase functions deploy payfast-billing-webhook \
@@ -168,7 +168,7 @@ When deploying blueprint, fill:
 
 #### Verify Cron Schedules
 - **attendance-lockout-watchdog:** Daily at 14:00 UTC
-- **72-hour-disciplinary-tracker:** Daily at 01:30 UTC
+- **disciplinary-72h-tracker:** Daily at 01:30 UTC
 
 ---
 
