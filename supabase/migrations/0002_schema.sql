@@ -228,5 +228,5 @@ ON storage.objects FOR INSERT TO authenticated
 WITH CHECK (
     bucket_id = 'imports'
     AND (SELECT role FROM public.users WHERE user_id = auth.uid()) IN ('SCHOOLADMIN', 'TEACHER', 'SUPERADMIN')
-    AND storage.foldername(name)[1] = (SELECT school_id::text FROM public.users WHERE user_id = auth.uid())
+    AND (storage.foldername(name))[1] = (SELECT school_id::text FROM public.users WHERE user_id = auth.uid())
 );
