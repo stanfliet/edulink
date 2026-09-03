@@ -7,6 +7,7 @@ import { RouteTransition } from "@/components/layout/RouteTransition";
 import { Card } from "@/components/ui/Card";
 import { StatCard } from "@/components/ui/StatCard";
 import { useProfile } from "@/hooks/useProfile";
+import { EnablePush } from "@/components/parent/EnablePush";
 import { createClient } from "@/lib/supabase/client";
 import { formatDateTime } from "@/lib/utils";
 
@@ -152,6 +153,8 @@ export default function ParentNotificationsPage() {
                 </button>
               )}
             </div>
+
+            {profile && <EnablePush userId={profile.user_id} />}
 
             <Card title="All Notifications" icon={<BellRing className="h-3.5 w-3.5" />}>
               {!loaded ? (

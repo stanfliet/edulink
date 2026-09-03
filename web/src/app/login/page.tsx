@@ -107,9 +107,15 @@ function LoginForm() {
             </form>
 
             <p className="mt-5 text-center text-[10px] leading-relaxed text-ghost">
-              Access is role-scoped and tenant-isolated. Contact the Platform Operations
-              Director to provision accounts. No email? Sign in with your cell number —
-              accounts are provisioned by your school administrator.
+              Access is role-scoped and tenant-isolated. Parents can self-register with an
+              email verification code; staff accounts are provisioned by your school
+              administrator — no email? Sign in with your cell number.
+            </p>
+
+            <p className="mt-3 text-center">
+              <Link href="/register" className="text-[11px] text-cyan/80 hover:text-cyan">
+                New parent? Create an account →
+              </Link>
             </p>
           </div>
 
