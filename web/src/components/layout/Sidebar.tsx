@@ -8,6 +8,8 @@ import {
   BookOpen,
   Users,
   HeartPulse,
+  BellRing,
+  UserPlus,
   LogOut,
   type LucideIcon,
 } from "lucide-react";
@@ -25,11 +27,13 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
   SUPERADMIN: [
     { href: "/dashboard/superadmin", label: "Network Command", icon: LayoutDashboard },
     { href: "/dashboard/superadmin/billing", label: "Master Billing", icon: School },
+    { href: "/dashboard/schooladmin/provision", label: "Provision Accounts", icon: UserPlus },
   ],
   SCHOOLADMIN: [
     { href: "/dashboard/schooladmin", label: "Campus Overview", icon: LayoutDashboard },
     { href: "/dashboard/schooladmin/ingest", label: "Data Ingestion", icon: BookOpen },
     { href: "/dashboard/schooladmin/notices", label: "Notice Blasts", icon: Users },
+    { href: "/dashboard/schooladmin/provision", label: "Provision Accounts", icon: UserPlus },
   ],
   TEACHER: [
     { href: "/dashboard/teacher", label: "My Classes", icon: LayoutDashboard },
@@ -37,6 +41,7 @@ const NAV: Partial<Record<Role, NavItem[]>> = {
   ],
   PARENT: [
     { href: "/dashboard/parent", label: "Family Hub", icon: LayoutDashboard },
+    { href: "/dashboard/parent/notifications", label: "Notification Centre", icon: BellRing },
     { href: "/dashboard/parent/consent", label: "Health Net Consent", icon: HeartPulse },
   ],
   CLINIC_USER: [

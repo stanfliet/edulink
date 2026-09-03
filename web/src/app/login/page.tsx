@@ -3,8 +3,9 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Loader2, Lock, Mail, ShieldAlert } from "lucide-react";
+import { Loader2, Lock, ShieldAlert, UserRound } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { resolveLoginHandle } from "@/lib/identity";
 import { LegalFooter } from "@/components/layout/Footer";
 
 function LoginForm() {
@@ -12,7 +13,7 @@ function LoginForm() {
   const params = useSearchParams();
   const next = params.get("next") ?? "/dashboard";
 
-  const [email, setEmail] = useState("");
+  const [identity, setIdentity] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -21,8 +22,16 @@ function LoginForm() {
     e.preventDefault();
     setBusy(true);
     setError(null);
+
+    const handle = resolveLoginHandle(identity);
+    if (!handle) {
+      setError("Enter a valid email address or cell number (e.g. 082 123 4567).");
+      setBusy(false);
+      return;
+    }
+
     const supabase = createClient();
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email: handle, password });
     if (error) {
       setError(error.message);
       setBusy(false);
@@ -54,17 +63,17 @@ function LoginForm() {
 
             <form onSubmit={onSubmit} className="space-y-4">
               <label className="block">
-                <span className="label">Email address</span>
+                <span className="label">Email or cell number</span>
                 <span className="relative mt-1 block">
-                  <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ghost" />
+                  <UserRound className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ghost" />
                   <input
-                    type="email"
+                    type="text"
                     required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="you@school.co.za"
+                    value={identity}
+                    onChange={(e) => setIdentity(e.target.value)}
+                    placeholder="you@school.co.za or 082 123 4567"
                     className="neon-input pl-9"
-                    autoComplete="email"
+                    autoComplete="username"
                   />
                 </span>
               </label>
@@ -99,7 +108,8 @@ function LoginForm() {
 
             <p className="mt-5 text-center text-[10px] leading-relaxed text-ghost">
               Access is role-scoped and tenant-isolated. Contact the Platform Operations
-              Director to provision accounts.
+              Director to provision accounts. No email? Sign in with your cell number —
+              accounts are provisioned by your school administrator.
             </p>
           </div>
 
